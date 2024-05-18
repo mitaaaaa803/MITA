@@ -6,6 +6,38 @@
     <title>Document</title>
 </head>
 <body>
+    <div id="app">
+        <h1 v-html="content"></h1>
+        <p>我是{{name}}, 今天想聽{{music[1]}}，聽到醉</p>
+        <p>{{live?"我還活著 哈":"死掉了gg"}}</p>
+        <p v-text="age"></p>
+        <h4>阿你知道{{music[0]}}?</h4>
+        <h4>你會{{skill['f2e'][0]}}? 哈 我不會</h4>
+        <p v-text="gender"></p>
+        
+    </div>
     
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        // debugger
+        // console.log(Vue)
+        const app = Vue.createApp({
+            data() {
+                return {
+                    name: 'Mita',
+                    age: 25,
+                    live: false,
+                    music: ['aimar', ' one or rock', 'mamamoo'],
+                    skill: {
+                        f2e: ['vue', 'react'],
+                        b2e: ['php', 'nodejs', 'ASP.net']
+                    },
+                    gender: null,
+                    content: '<div style="color: red;">哈囉</div>'
+                }
+            },
+        })
+        app.mount('#app')
+    </script>
 </body>
 </html>
