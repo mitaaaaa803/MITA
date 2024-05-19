@@ -45,14 +45,17 @@
 </head>
 <body>
   <div id="app">
+    <p v-for="number in 10">
+        {{number}}
+    </p>
     <div class="cart">
       <h5>shopping cart</h5>
-      <div class="cartItem">
-        <img :src="cartList[0]['img']" alt="">
+      <div class="cartItem" v-for="(cartItem, cartIndex) in cartList">
+        <img :src="cartList[cartIndex]['img']" alt="">
         <div>
-          <h6>{{cartList[0]['title']}}</h6>
-          <p>{{cartList[0]['subTitle']}}</p>
-          <p>＄{{cartList[0]['price']}}</p>
+          <h6>{{cartList[cartIndex]['title']}}</h6>
+          <p>{{cartList[cartIndex]['subTitle']}}</p>
+          <p>＄{{cartList[cartIndex]['price']}}</p>
         </div>
         <div>
           <button @click="reduce(0)">-</button>
