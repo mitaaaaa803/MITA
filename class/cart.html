@@ -1,5 +1,5 @@
-    <!DOCTYPE html>
-    <html lang="en">
+<!DOCTYPE html>
+<html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -8,122 +8,131 @@
         * {
             margin: 0;
         }
+
         #app {
             width: 100vw;
             height: 50vh;
             display: inline-flex;
         }
+
         .cart {
             /* width: 55%; */
             width: 100%;
             height: 100%;
             background-color: #ddd;
         }
+
         .form {
             width: 40%;
             height: 100%;
             background-color: #999;
         }
+
         .cartItem {
             display: inline-flex;
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            }
-            img {
-                width: 4rem;
-                height: 4rem;
-                background-color: #ddd;
-            }
-            button {
+        }
+
+        img {
+            width: 4rem;
+            height: 4rem;
+            background-color: #ddd;
+        }
+
+        button {
             width: 2rem;
             height: 2rem;
             border-radius: 50%;
         }
         </style>
-        </head>
-        <body>
+    </head>
+
+    <body>
         <div id="app">
-            <p v-for="number in 10">{{number}}</p>
-            <div class="cart">
+        <!-- <p v-for="number in 10" clas="page">{{number}}</p> -->
+        <div class="cart">
             <h5>shopping cart</h5>
-            <div class="cartItem" 
+
+            <div
+            class="cartItem"
             v-for="(cartItem, cartIndex) in cartList"
-            :key="cartItem['id']">
-            
-                <img :src="cartItem['img']" alt="" />
-                <div>
+            :key="cartItem['id']"
+            >
+            <img :src="cartItem['img']" alt="" />
+            <div>
                 <h6>{{cartItem['title']}}</h6>
                 <p>{{cartItem['subTitle']}}</p>
                 <p>＄{{cartItem['price']}}</p>
-                </div>
-                <div>
-                <button @click="reduce(0)">-</button>
-                {{cartList[0]['count']}}
-                <button @click="add(0)">+</button>
-                </div>
-                <button>X</button>
             </div>
-            <div class="cartItem">
-                <img :src="cartList[1]['img']" alt="" />
-                <div>
-                <h6>{{cartList[1]['title']}}</h6>
-                <p>{{cartList[1]['subTitle']}}</p>
-                <p>＄{{cartList[1]['price']}}</p>
-                </div>
-                <div>
-                <button @click="reduce(1)">-</button>
-                {{cartList[1]['count']}}
-                <button @click="add(1)">+</button>
-                </div>
-                <button>X</button>
+            <div>
+                <button @click="reduce(cartIndex)">-</button>
+                {{cartItem['count']}}
+                <button @click="add(cartIndex)">+</button>
             </div>
+            <button>X</button>
             </div>
-            <!-- <div class="form"></div> -->
+            <div>Total: $ {{total}}</div>
+        </div>
+        <!-- <div class="form"></div> -->
         </div>
         <script src="https://unpkg.com/vue"></script>
-            <script>
-                Vue.createApp({
-                    data() {
-                        return {
-                            cartList: [
-                            {
-                            id: 1,
-                            title: "aaa",
-                            subTitle: "bbb",
-                            price: 100,
-                            count: 1,
-                            img: "/images/1.png",
-                        },
-                        {
-                            id: 2,
-                            title: "ccc",
-                            subTitle: "ddd",
-                            price: 200,
-                            count: 2,
-                            img: "/images/2.png",
-                        },
-                        {
-                            id: 1,
-                            title: "aaa",
-                            subTitle: "xxd",
-                            price: 100,
-                            count: 2,
-                            img: "/images/2.png",
-                        },
-                    ],
-                    };
-                    },
-                    methods: {
-                    add(index) {
-                        this.cartList[index]["count"] += 1;
+        <script>
+        Vue.createApp({
+            data() {
+            return {
+                cartList: [
+                {
+                    id: 1,
+                    title: "aaa",
+                    subTitle: "bbb",
+                    price: 100,
+                    count: 1,
+                    img: "/images/1.png",
                 },
-                reduce(index) {
-                    if (this.cartList[index]["count"] == 0) return;
-                    this.cartList[index]["count"] -= 1;
+                {
+                    id: 2,
+                    title: "ccc",
+                    subTitle: "ddd",
+                    price: 200,
+                    count: 1,
+                    img: "/images/2.png",
                 },
-                },
-            }).mount("#app");
-            </script>
-        </body>
-        </html>
+                ],
+            };
+            },
+            computed: {
+            total() {
+                // 想法
+                // const prod1 = this.cartList[0]['price'] * this.cartList[0]['count']
+                // const prod2 = this.cartList[1]['price'] * this.cartList[1]['count']
+                // return prod1 + prod2
+
+                // for迴圈
+                // let price = 0
+                // for (let index = 0; index < this.cartList.length; index++) {
+                //   price += (this.cartList[index]['price'] * this.cartList[index]['count'])
+                // }
+                // return price
+
+                // Array.reduce
+                return this.cartList.reduce(
+                (total, item) => total + item.price * item.count,
+                0
+                );
+            },
+            },
+            methods: {
+            add(index) {
+                this.cartList[index]["count"] += 1;
+            },
+            reduce(index) {
+                if (this.cartList[index]["count"] == 0) return;
+                this.cartList[index]["count"] -= 1;
+            },
+            },
+        }).mount("#app");
+        </script>
+    </body>
+    </html>
