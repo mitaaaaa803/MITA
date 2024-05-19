@@ -13,8 +13,8 @@
 
         <br>
 
-        總價: {{parse()}}
-        美金: {{parseDollar()}}
+        總價: {{parse}}
+        美金: {{dollar}}
     </div>
     <script src="https://unpkg.com/vue"></script>
     <script>
@@ -23,10 +23,17 @@
             data() {
                 return {
                     res: 0,
-                    count: 10,
-                    totle: 0,
-                    price: 100,
-                    dollar:0
+                    count: 1,
+                    price: 100
+                }
+            },
+            computed:{
+                parse(){
+                    return this.price * this.res
+                },
+                dollar(){
+                    return this.parse / 30
+                    // return this.total / 30
                 }
             },
             methods: {
@@ -41,10 +48,6 @@
                     // this.res = this.count - 1
                     if(this.res <= 0) return
                     this.res -= this.count
-                },
-                parse(){
-                    console.log('xxxd');
-                    return this.price * this.res
                 },
                 parseDollar(){
                     //錯誤寫法 -> 用computer
