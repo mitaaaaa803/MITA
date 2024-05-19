@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .cart{
+            display: flex;
+        }
+        .form{
+            display: flex;
+        }
+        .number{
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <h1>shopping cart</h1>
+        <div class="cart">
+            <div class="pic">
+                <img :src="cartList[0]['img']">
+            </div>
+            <div class="form">
+                <p>{{cartList[0]['tiltle']}}</p>
+
+                <div class="number">
+                    <button  @click="reduce(0)">-</button>
+                    <p>{{cartList[0]['price']}}</p>
+                    <button @click="add(0)">+</button>
+                </div>
+                
+                <p>{{cartList[0]['subTitle']}}</p>
+                <button class="icon">x</button>
+            </div>     
+        </div>
+    </div>
+    <script src="https://unpkg.com/vue"></script>
+
+    <script>
+        Vue.createApp({
+            data(){
+                return{
+                    cartList: [
+                        {
+                            id: 1,
+                            tiltle: 'aaa',
+                            subTitle: 'bbb',
+                            price: 100,
+                            count: 1,
+                            img: "/image/Cartilla Vinos.jpg"
+                        }
+                    ]
+                }
+            },
+            methods: {
+                addw(index){
+                    if(this.widths === 9) return
+                    this.widths += 1
+                    this.bg = `#${widths}${widths}${widths}`
+                },
+                reduce(index){
+                    if(this.cartList[index]['count'] == 0) return
+                    this.cartList[index]['count'] -= 1
+                }
+                
+            },
+        }).mount('#app')
+    </script>
+</body>
+</html>

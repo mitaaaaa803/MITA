@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+      margin: 0;
+    }
+    #app{
+      width: 100vw;
+      height: 50vh;
+      display: inline-flex;
+    }
+    .cart{
+      /* width: 55%; */
+      width: 100%;
+      height: 100%;
+      background-color: #ddd;
+    }
+    .form{
+      width: 40%;
+      height: 100%;
+      background-color: #999;
+    }
+    .cartItem{
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      
+    }
+    img{
+      width: 4rem;
+      height: 4rem;
+      background-color: #ddd;
+    }
+    button{
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="cart">
+      <h5>shopping cart</h5>
+      <div class="cartItem">
+        <img :src="cartList[0]['img']" alt="">
+        <div>
+          <h6>{{cartList[0]['title']}}</h6>
+          <p>{{cartList[0]['subTitle']}}</p>
+          <p>＄{{cartList[0]['price']}}</p>
+        </div>
+        <div>
+          <button @click="reduce(0)">-</button>
+          {{cartList[0]['count']}}
+          <button @click="add(0)">+</button>
+        </div>
+        <button>X</button>
+      </div>
+      <div class="cartItem">
+        <img :src="cartList[1]['img']" alt="">
+        <div>
+          <h6>{{cartList[1]['title']}}</h6>
+          <p>{{cartList[1]['subTitle']}}</p>
+          <p>＄{{cartList[1]['price']}}</p>
+        </div>
+        <div>
+          <button @click="reduce(1)">-</button>
+          {{cartList[1]['count']}}
+          <button @click="add(1)">+</button>
+        </div>
+        <button>X</button>
+      </div>
+    </div>
+    <!-- <div class="form"></div> -->
+  </div>
+  <script src="https://unpkg.com/vue"></script>
+  <script>
+    Vue.createApp({
+      data() {
+        return {
+          cartList: [
+            {
+              id: 1,
+              title: 'aaa',
+              subTitle: 'bbb',
+              price: 100,
+              count: 1,
+              img: "/images/1.png"
+            },
+            {
+              id: 2,
+              title: 'ccc',
+              subTitle: 'ddd',
+              price: 200,
+              count: 2,
+              img: "/images/2.png"
+            },
+          ]
+        }
+      },
+      methods: {
+        add(index){
+          this.cartList[index]['count'] += 1
+        },
+        reduce(index){
+          if(this.cartList[index]['count'] == 0) return
+          this.cartList[index]['count'] -= 1
+        },
+      },
+    }).mount("#app")
+  </script>
+</body>
+</html>
